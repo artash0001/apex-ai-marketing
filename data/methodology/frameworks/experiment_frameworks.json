@@ -1,0 +1,128 @@
+{
+  "experiment_types": [
+    {
+      "type": "headline_test",
+      "category": "Conversion Optimization",
+      "template": {
+        "hypothesis": "Changing the headline from '{control}' to '{variant}' will increase {metric} by {expected_lift}% because {reasoning}.",
+        "typical_duration_days": 14,
+        "minimum_sample_size": 500,
+        "primary_metrics": [
+          "click_through_rate",
+          "conversion_rate"
+        ],
+        "guardrail_metrics": [
+          "bounce_rate",
+          "time_on_page"
+        ]
+      }
+    },
+    {
+      "type": "cta_test",
+      "category": "Conversion Optimization",
+      "template": {
+        "hypothesis": "Changing the CTA from '{control}' to '{variant}' will increase click-through rate by {expected_lift}%.",
+        "typical_duration_days": 14,
+        "minimum_sample_size": 1000,
+        "primary_metrics": [
+          "cta_click_rate"
+        ],
+        "guardrail_metrics": [
+          "conversion_rate",
+          "bounce_rate"
+        ]
+      }
+    },
+    {
+      "type": "ad_creative_test",
+      "category": "Paid Performance",
+      "template": {
+        "hypothesis": "Ad creative variant with {change_description} will achieve {expected_lift}% higher CTR while maintaining conversion rate within 5% of current levels.",
+        "typical_duration_days": 7,
+        "minimum_spend": "$200 per variant",
+        "primary_metrics": [
+          "ctr",
+          "cpc"
+        ],
+        "guardrail_metrics": [
+          "conversion_rate",
+          "cost_per_conversion"
+        ]
+      }
+    },
+    {
+      "type": "email_subject_test",
+      "category": "Email Nurture",
+      "template": {
+        "hypothesis": "Subject line '{variant}' will achieve {expected_lift}% higher open rate than '{control}' for the {segment} segment.",
+        "typical_duration_days": 3,
+        "minimum_sample_size": 200,
+        "primary_metrics": [
+          "open_rate"
+        ],
+        "guardrail_metrics": [
+          "unsubscribe_rate",
+          "spam_rate"
+        ]
+      }
+    },
+    {
+      "type": "landing_page_layout",
+      "category": "Conversion Optimization",
+      "template": {
+        "hypothesis": "Moving {element} from {position_a} to {position_b} will increase form submissions by {expected_lift}%.",
+        "typical_duration_days": 21,
+        "minimum_sample_size": 500,
+        "primary_metrics": [
+          "form_submission_rate"
+        ],
+        "guardrail_metrics": [
+          "bounce_rate",
+          "scroll_depth"
+        ]
+      }
+    },
+    {
+      "type": "content_format_test",
+      "category": "Content Engine",
+      "template": {
+        "hypothesis": "{format_variant} format will generate {expected_lift}% more {metric} than {format_control} for {topic_area} content.",
+        "typical_duration_days": 30,
+        "minimum_sample_size": 1000,
+        "primary_metrics": [
+          "page_views",
+          "time_on_page",
+          "social_shares"
+        ],
+        "guardrail_metrics": [
+          "bounce_rate"
+        ]
+      }
+    }
+  ],
+  "decision_framework": {
+    "implement": {
+      "criteria": [
+        "Statistically significant result (p < 0.05)",
+        "Primary metric improved by >= predicted lift",
+        "No guardrail metric breached"
+      ],
+      "action": "Roll out winning variant to 100% of traffic"
+    },
+    "iterate": {
+      "criteria": [
+        "Directionally positive but not statistically significant",
+        "OR primary metric improved but guardrail breached",
+        "OR insufficient sample size"
+      ],
+      "action": "Design follow-up experiment with refined hypothesis"
+    },
+    "discard": {
+      "criteria": [
+        "No improvement or negative result",
+        "AND sufficient sample size for conclusion"
+      ],
+      "action": "Document learning. Do not pursue this direction."
+    }
+  }
+}

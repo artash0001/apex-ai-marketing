@@ -1,0 +1,83 @@
+# =============================================================================
+# Apex AI Marketing - Git Ignore
+# =============================================================================
+
+# ── Environment and secrets ──────────────────────────────────────────────
+.env
+.env.local
+.env.production
+.env.staging
+# NOTE: .env.example IS tracked (it's the template)
+
+# ── Python ───────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg-info/
+*.egg
+dist/
+build/
+.venv/
+venv/
+env/
+.Python
+pip-log.txt
+pip-delete-this-directory.txt
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+htmlcov/
+.coverage
+.coverage.*
+coverage.xml
+*.cover
+
+# ── Node.js ──────────────────────────────────────────────────────────────
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.npm
+.yarn-integrity
+
+# ── Build output ─────────────────────────────────────────────────────────
+# Frontend and admin dist folders (built in Docker)
+admin/dist/
+# NOTE: frontend/dist/ may be committed if pre-built; uncomment if not:
+# frontend/dist/
+
+# ── IDE and editor ───────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+*.sublime-workspace
+*.sublime-project
+
+# ── OS files ─────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# ── Docker ───────────────────────────────────────────────────────────────
+# Docker data volumes (if stored locally)
+docker-data/
+
+# ── Backups ──────────────────────────────────────────────────────────────
+backups/
+*.sql
+*.sql.gz
+
+# ── Deliverables (generated files) ───────────────────────────────────────
+deliverables/
+
+# ── Logs ─────────────────────────────────────────────────────────────────
+*.log
+logs/
+
+# ── Temporary files ──────────────────────────────────────────────────────
+tmp/
+temp/
+*.tmp

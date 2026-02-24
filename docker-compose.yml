@@ -1,0 +1,176 @@
+# =============================================================================
+# Apex AI Marketing - Docker Compose Configuration
+# =============================================================================
+# Runs the full system: PostgreSQL, Redis, FastAPI backend, Celery workers,
+# admin panel, and frontend. Designed to coexist with existing services on the
+# VPS at apexaimarketing.pro.
+#
+# Usage:
+#   docker compose up -d          # start all services
+#   docker compose logs -f        # follow all logs
+#   docker compose down           # stop all services
+# =============================================================================
+
+version: "3.9"
+
+services:
+  # ── PostgreSQL 16 ──────────────────────────────────────────────────────
+  db:
+    image: postgres:16-alpine
+    container_name: apex-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - apex-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+
+  # ── Redis 7 ────────────────────────────────────────────────────────────
+  redis:
+    image: redis:7-alpine
+    container_name: apex-redis
+    restart: unless-stopped
+    ports:
+      - "6380:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - apex-network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ── FastAPI Backend ────────────────────────────────────────────────────
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    container_name: apex-backend
+    restart: unless-stopped
+    ports:
+      - "8100:8000"
+    env_file:
+      - .env
+    environment:
+      # Override DB/Redis URLs to use internal Docker networking
+      # Inside Docker, db listens on 5432, redis on 6379 (internal ports)
+      DATABASE_URL: postgresql+asyncpg://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}
+      SYNC_DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}
+      REDIS_URL: redis://redis:6379/0
+    volumes:
+      - deliverables_data:/app/deliverables
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - apex-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # ── Celery Worker ──────────────────────────────────────────────────────
+  celery-worker:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    container_name: apex-celery-worker
+    restart: unless-stopped
+    command: celery -A celery_app worker --loglevel=info --concurrency=4 -Q engines,outreach,reports,experiments,maintenance,billing,celery
+    env_file:
+      - .env
+    environment:
+      DATABASE_URL: postgresql+asyncpg://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}
+      SYNC_DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}
+      REDIS_URL: redis://redis:6379/0
+    volumes:
+      - deliverables_data:/app/deliverables
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      backend:
+        condition: service_started
+    networks:
+      - apex-network
+
+  # ── Celery Beat Scheduler ──────────────────────────────────────────────
+  celery-beat:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    container_name: apex-celery-beat
+    restart: unless-stopped
+    command: celery -A celery_app beat --loglevel=info
+    env_file:
+      - .env
+    environment:
+      DATABASE_URL: postgresql+asyncpg://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}
+      SYNC_DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}
+      REDIS_URL: redis://redis:6379/0
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      backend:
+        condition: service_started
+    networks:
+      - apex-network
+
+  # ── Admin Panel (React SPA) ────────────────────────────────────────────
+  admin:
+    build:
+      context: ./admin
+      dockerfile: Dockerfile
+    container_name: apex-admin
+    restart: unless-stopped
+    ports:
+      - "8101:80"
+    networks:
+      - apex-network
+
+  # ── Frontend (React SPA) ───────────────────────────────────────────────
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: apex-frontend
+    restart: unless-stopped
+    ports:
+      - "8102:80"
+    networks:
+      - apex-network
+
+# ── Networks ───────────────────────────────────────────────────────────────
+networks:
+  apex-network:
+    driver: bridge
+    name: apex-network
+
+# ── Volumes ────────────────────────────────────────────────────────────────
+volumes:
+  postgres_data:
+    name: apex-postgres-data
+  redis_data:
+    name: apex-redis-data
+  deliverables_data:
+    name: apex-deliverables-data

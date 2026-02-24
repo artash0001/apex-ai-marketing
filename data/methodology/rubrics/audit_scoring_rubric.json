@@ -1,0 +1,182 @@
+{
+  "name": "Growth Infrastructure Audit Scoring Rubric",
+  "version": "2.0",
+  "total_possible_score": 100,
+  "categories": {
+    "website_technical": {
+      "weight": 20,
+      "criteria": {
+        "page_speed": {
+          "max_score": 5,
+          "scoring": {
+            "5": "LCP < 2.5s, FID < 100ms, CLS < 0.1",
+            "3": "LCP < 4s, FID < 300ms, CLS < 0.25",
+            "1": "LCP > 4s or FID > 300ms or CLS > 0.25"
+          }
+        },
+        "mobile_responsive": {
+          "max_score": 5,
+          "scoring": {
+            "5": "Fully responsive, excellent mobile UX",
+            "3": "Responsive but with minor issues",
+            "1": "Not mobile-friendly or major issues"
+          }
+        },
+        "ssl_security": {
+          "max_score": 3,
+          "scoring": {
+            "3": "Valid SSL, HSTS, secure forms",
+            "1": "SSL present but misconfigured",
+            "0": "No SSL or expired certificate"
+          }
+        },
+        "conversion_elements": {
+          "max_score": 5,
+          "scoring": {
+            "5": "Clear CTAs, lead capture, trust elements, chat",
+            "3": "Basic CTAs and contact forms present",
+            "1": "Minimal or no conversion architecture"
+          }
+        },
+        "analytics_tracking": {
+          "max_score": 2,
+          "scoring": {
+            "2": "GA4 + GTM + conversion tracking configured",
+            "1": "Basic analytics only",
+            "0": "No analytics installed"
+          }
+        }
+      }
+    },
+    "seo_organic": {
+      "weight": 20,
+      "criteria": {
+        "technical_seo": {
+          "max_score": 5,
+          "scoring": {
+            "5": "Clean crawlability, proper indexing, schema markup",
+            "3": "Minor technical issues but functional",
+            "1": "Major crawlability or indexing problems"
+          }
+        },
+        "on_page_optimization": {
+          "max_score": 5,
+          "scoring": {
+            "5": "Optimized titles, metas, headers, internal linking",
+            "3": "Partially optimized",
+            "1": "No meaningful on-page SEO"
+          }
+        },
+        "backlink_authority": {
+          "max_score": 5,
+          "scoring": {
+            "5": "Strong, diverse backlink profile (DA 40+)",
+            "3": "Moderate authority (DA 20-40)",
+            "1": "Weak or no backlink profile (DA < 20)"
+          }
+        },
+        "keyword_targeting": {
+          "max_score": 5,
+          "scoring": {
+            "5": "Clear keyword strategy with ranking positions",
+            "3": "Some keyword targeting but not systematic",
+            "1": "No keyword strategy evident"
+          }
+        }
+      }
+    },
+    "content": {
+      "weight": 15,
+      "criteria": {
+        "content_quantity": {
+          "max_score": 4,
+          "scoring": {
+            "4": "Regular publishing cadence, substantial library",
+            "2": "Sporadic content, thin library",
+            "0": "No blog or content marketing"
+          }
+        },
+        "content_quality": {
+          "max_score": 4,
+          "scoring": {
+            "4": "Original, in-depth, audience-focused content",
+            "2": "Generic or thin content",
+            "0": "No meaningful content"
+          }
+        },
+        "content_strategy": {
+          "max_score": 4,
+          "scoring": {
+            "4": "Topic clusters, funnel stages, clear strategy",
+            "2": "Some thematic consistency",
+            "0": "No visible content strategy"
+          }
+        },
+        "content_distribution": {
+          "max_score": 3,
+          "scoring": {
+            "3": "Multi-channel distribution, repurposing",
+            "1": "Published but not distributed",
+            "0": "No distribution strategy"
+          }
+        }
+      }
+    },
+    "social_community": {
+      "weight": 10,
+      "criteria": {
+        "platform_presence": {
+          "max_score": 3
+        },
+        "engagement_rate": {
+          "max_score": 4
+        },
+        "posting_consistency": {
+          "max_score": 3
+        }
+      }
+    },
+    "paid_advertising": {
+      "weight": 15,
+      "criteria": {
+        "campaign_structure": {
+          "max_score": 5
+        },
+        "targeting_quality": {
+          "max_score": 5
+        },
+        "conversion_tracking": {
+          "max_score": 3
+        },
+        "roas_efficiency": {
+          "max_score": 5
+        }
+      }
+    },
+    "local_visibility": {
+      "weight": 10,
+      "criteria": {
+        "gmb_optimization": {
+          "max_score": 5
+        },
+        "review_profile": {
+          "max_score": 3
+        },
+        "directory_listings": {
+          "max_score": 2
+        }
+      }
+    },
+    "competitive_position": {
+      "weight": 10,
+      "criteria": {
+        "market_differentiation": {
+          "max_score": 5
+        },
+        "share_of_voice": {
+          "max_score": 5
+        }
+      }
+    }
+  }
+}

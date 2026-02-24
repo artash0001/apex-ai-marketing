@@ -1,0 +1,138 @@
+{
+  "name": "Apex Growth Infrastructure Methodology",
+  "version": "2.0",
+  "last_updated": "2026-02-24",
+  "core_philosophy": "Marketing should operate as infrastructure -- integrated systems that compound over time -- not as disconnected campaigns with unpredictable outcomes.",
+  "three_pillars": {
+    "ai_powered_execution": {
+      "description": "Claude-based AI agents handle research, content generation, optimization, and analysis at speed and consistency that human teams alone cannot achieve.",
+      "key_capabilities": [
+        "Multi-language content generation (EN/RU)",
+        "Real-time performance analysis and optimization",
+        "Automated quality assurance with human oversight",
+        "Structured experiment design and evaluation"
+      ]
+    },
+    "structured_experimentation": {
+      "description": "Every marketing action is treated as a hypothesis. We measure, learn, and iterate weekly. No guesswork, no vanity metrics.",
+      "experiment_framework": {
+        "steps": [
+          "Hypothesis formation with measurable prediction",
+          "Variable identification and control setup",
+          "Primary metric and guardrail metric definition",
+          "Execution period (typically 2 weeks)",
+          "Data collection and statistical analysis",
+          "Decision: implement, iterate, or discard",
+          "Learning documentation for institutional knowledge"
+        ],
+        "cadence": "Weekly review, bi-weekly new experiments"
+      }
+    },
+    "transparent_reporting": {
+      "description": "Clients see exactly what is happening, what is working, and why. No black boxes, no vague metrics.",
+      "reporting_cadence": {
+        "real_time": "Telegram notifications for important events",
+        "weekly": "Full performance report with KPI tracking",
+        "monthly": "Comprehensive review with ROI analysis and billing",
+        "quarterly": "Strategic review and roadmap adjustment"
+      }
+    }
+  },
+  "engine_model": {
+    "description": "Each 'engine' is a self-contained growth system focused on a specific outcome. Engines run continuously, learning and improving. They are not projects with end dates -- they are infrastructure that compounds.",
+    "engines": [
+      {
+        "name": "Content Engine",
+        "purpose": "Authority-building content that drives organic traffic and establishes thought leadership",
+        "typical_deliverables": [
+          "4-8 SEO-optimized articles per month",
+          "Content calendar aligned with search demand",
+          "Topic cluster strategy",
+          "Content performance tracking"
+        ]
+      },
+      {
+        "name": "SEO Architecture Engine",
+        "purpose": "Technical and on-page SEO that builds sustainable organic visibility",
+        "typical_deliverables": [
+          "Technical SEO audit and fixes",
+          "On-page optimization for target pages",
+          "Schema markup implementation",
+          "Monthly ranking and visibility reports"
+        ]
+      },
+      {
+        "name": "Paid Performance Engine",
+        "purpose": "AI-optimized paid campaigns that improve weekly",
+        "typical_deliverables": [
+          "Campaign setup and management (Google, Meta)",
+          "Weekly A/B testing of ads and audiences",
+          "Conversion tracking and attribution",
+          "ROAS optimization"
+        ]
+      },
+      {
+        "name": "Social Media Engine",
+        "purpose": "Brand presence and community building across platforms",
+        "typical_deliverables": [
+          "12-20 posts per month across platforms",
+          "Community engagement management",
+          "Hashtag and trend strategy",
+          "Platform-specific content optimization"
+        ]
+      },
+      {
+        "name": "Email Nurture Engine",
+        "purpose": "Lead nurturing and customer retention through email sequences",
+        "typical_deliverables": [
+          "Automated email sequences",
+          "Newsletter content",
+          "Segmentation strategy",
+          "A/B testing of subjects and content"
+        ]
+      },
+      {
+        "name": "Local Visibility Engine",
+        "purpose": "Dominate local search and directory presence",
+        "typical_deliverables": [
+          "Google Business Profile optimization",
+          "Directory listing management",
+          "Review generation strategy",
+          "Local content creation"
+        ]
+      },
+      {
+        "name": "Conversion Optimization Engine",
+        "purpose": "Systematic improvement of website conversion rates",
+        "typical_deliverables": [
+          "Conversion audit and heatmap analysis",
+          "Landing page optimization",
+          "A/B testing program",
+          "Funnel analysis and leak detection"
+        ]
+      },
+      {
+        "name": "Growth Ops Engine",
+        "purpose": "Strategic layer that coordinates all engines and drives compounding growth",
+        "typical_deliverables": [
+          "Growth strategy and roadmap",
+          "Cross-engine optimization",
+          "Experiment design and analysis",
+          "Quarterly strategic reviews"
+        ]
+      }
+    ]
+  },
+  "quality_assurance": {
+    "process": [
+      "AI agent generates initial deliverable",
+      "Brand Voice Agent checks tone and terminology consistency",
+      "Quality Gate scores on 4 dimensions (completeness, accuracy, actionability, formatting)",
+      "Combined score >= 7/10 passes to human review",
+      "Human review for strategic alignment and nuance",
+      "Client delivery with revision cycle if needed"
+    ],
+    "max_iterations": 5,
+    "escalation_trigger": "Score below 5/10 or 3+ iteration cycles"
+  }
+}

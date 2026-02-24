@@ -1,0 +1,155 @@
+{
+  "currency": "USD",
+  "market": "Dubai / UAE",
+  "last_updated": "2026-02-24",
+  "engine_pricing": {
+    "content_engine": {
+      "name": "Content Engine",
+      "tiers": {
+        "starter": {
+          "price_monthly": 2500,
+          "includes": [
+            "4 SEO articles/month",
+            "Content calendar",
+            "Basic analytics"
+          ]
+        },
+        "growth": {
+          "price_monthly": 4500,
+          "includes": [
+            "8 SEO articles/month",
+            "Topic cluster strategy",
+            "Content repurposing",
+            "Performance tracking"
+          ]
+        },
+        "scale": {
+          "price_monthly": 7500,
+          "includes": [
+            "12+ articles/month",
+            "Full content strategy",
+            "Multi-format (articles, video scripts, social)",
+            "Dedicated content strategist"
+          ]
+        }
+      }
+    },
+    "seo_engine": {
+      "name": "SEO Architecture Engine",
+      "tiers": {
+        "starter": {
+          "price_monthly": 2000
+        },
+        "growth": {
+          "price_monthly": 3500
+        },
+        "scale": {
+          "price_monthly": 6000
+        }
+      }
+    },
+    "paid_performance": {
+      "name": "Paid Performance Engine",
+      "tiers": {
+        "starter": {
+          "price_monthly": 2000,
+          "note": "Plus ad spend"
+        },
+        "growth": {
+          "price_monthly": 3500,
+          "note": "Plus ad spend"
+        },
+        "scale": {
+          "price_monthly": 6000,
+          "note": "Plus ad spend"
+        }
+      }
+    },
+    "social_media": {
+      "name": "Social Media Engine",
+      "tiers": {
+        "starter": {
+          "price_monthly": 1500
+        },
+        "growth": {
+          "price_monthly": 3000
+        },
+        "scale": {
+          "price_monthly": 5000
+        }
+      }
+    },
+    "email_nurture": {
+      "name": "Email Nurture Engine",
+      "tiers": {
+        "starter": {
+          "price_monthly": 1500
+        },
+        "growth": {
+          "price_monthly": 2500
+        },
+        "scale": {
+          "price_monthly": 4000
+        }
+      }
+    },
+    "local_visibility": {
+      "name": "Local Visibility Engine",
+      "tiers": {
+        "starter": {
+          "price_monthly": 1000
+        },
+        "growth": {
+          "price_monthly": 2000
+        },
+        "scale": {
+          "price_monthly": 3500
+        }
+      }
+    },
+    "conversion_optimization": {
+      "name": "Conversion Optimization Engine",
+      "tiers": {
+        "starter": {
+          "price_monthly": 2000
+        },
+        "growth": {
+          "price_monthly": 3500
+        },
+        "scale": {
+          "price_monthly": 6000
+        }
+      }
+    },
+    "growth_ops": {
+      "name": "Growth Ops Engine",
+      "tiers": {
+        "growth": {
+          "price_monthly": 5000
+        },
+        "scale": {
+          "price_monthly": 10000
+        }
+      },
+      "note": "Requires at least 2 other active engines"
+    }
+  },
+  "bundle_discounts": {
+    "2_engines": "5% discount",
+    "3_engines": "10% discount",
+    "4_plus_engines": "15% discount",
+    "full_stack": "20% discount (all engines)"
+  },
+  "audit_pricing": {
+    "complimentary_audit": {
+      "price": 0,
+      "includes": "Full 7-layer growth infrastructure audit",
+      "note": "Offered to qualified prospects as lead magnet"
+    },
+    "premium_audit": {
+      "price": 2500,
+      "includes": "Audit + strategic roadmap + 60-min strategy session",
+      "note": "Credited toward first month if engines engaged"
+    }
+  }
+}

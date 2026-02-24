@@ -1,136 +1,103 @@
-"""APEX Digital — FastAPI Backend.
-
-Complete REST API for the AI-powered marketing agency.
-Uses Kimi API (OpenAI-compatible) for AI agent operations.
 """
-from fastapi import FastAPI, Depends, HTTPException, status, Query
-from fastapi.middleware.cors import CORSMiddleware
-from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
-from sqlalchemy.orm import Session
-from sqlalchemy import func
-from typing import List, Optional
-from pydantic import BaseModel, Field
-from datetime import date, datetime, timedelta
-from jose import jwt, JWTError
-from passlib.context import CryptContext
-import uuid
+Apex AI Marketing - FastAPI Application Entry Point
+
+Main application setup: middleware, routers, startup events, health checks.
+"""
+
 import logging
+from contextlib import asynccontextmanager
+from datetime import datetime, timezone
 
-from database import get_db, engine, Base
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
+from pathlib import Path
+
 from config import get_settings
+from database import init_db
 
-# Create tables on startup
-Base.metadata.create_all(bind=engine)
+settings = get_settings()
 
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s | %(levelname)-7s | %(name)s | %(message)s",
+)
 logger = logging.getLogger(__name__)
 
+
+# ── Lifespan: startup / shutdown ──────────────────────────────────────
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    """Run initialization on startup and cleanup on shutdown."""
+    logger.info("Starting %s backend ...", settings.BRAND_NAME)
+    await init_db()
+    logger.info("Database tables created / verified.")
+    yield
+    logger.info("Shutting down %s backend.", settings.BRAND_NAME)
+
+
+# ── Create FastAPI app ────────────────────────────────────────────────
+
 app = FastAPI(
-    title="APEX Digital API",
+    title=f"{settings.BRAND_NAME} API",
     version="2.0.0",
-    description="AI-Powered Digital Marketing Agency Backend",
+    description="AI Growth Infrastructure Agency - Backend API",
+    lifespan=lifespan,
 )
 
-# CORS — allow all origins for now
+# ── CORS middleware ───────────────────────────────────────────────────
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=["*"],  # Tighten in production
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-settings = get_settings()
+# ── Mount static files ────────────────────────────────────────────────
+static_dir = Path(__file__).resolve().parent / settings.STATIC_DIR
+static_dir.mkdir(parents=True, exist_ok=True)
+app.mount("/static", StaticFiles(directory=str(static_dir)), name="static")
 
-@app.get("/")
-def root():
-    return {"message": "APEX Digital API", "version": "2.0.0", "status": "running"}
+# ── Include API routers ───────────────────────────────────────────────
+from api import all_routers  # noqa: E402
 
-@app.get("/health")
-def health():
-    return {"status": "healthy", "timestamp": datetime.now()}
+for _router in all_routers:
+    app.include_router(_router)
 
-# Contact Form Endpoint
-class ContactForm(BaseModel):
-    name: str
-    email: str
-    company: Optional[str] = None
-    phone: Optional[str] = None
-    message: str
-    service_interest: Optional[str] = None
-    industry: Optional[str] = None
 
-@app.post("/contact-form")
-def submit_contact_form(form: ContactForm):
-    """Receive contact form submission and notify via Telegram"""
-    import requests
-    
-    BOT_TOKEN = '7989235077:AAGtunw3F9RbJHc2rTnlY2idE9wW1yJBNhA'
-    CHAT_ID = '627288703'
-    
-    message = f"""🚨 NEW LEAD FROM WEBSITE!
+# ── Health check ──────────────────────────────────────────────────────
 
-👤 Name: {form.name}
-📧 Email: {form.email}
-🏢 Company: {form.company or 'N/A'}
-📱 Phone: {form.phone or 'N/A'}
-🎯 Service: {form.service_interest or 'Not specified'}
-🏭 Industry: {form.industry or 'Not specified'}
+@app.get("/health", tags=["System"])
+async def health_check():
+    """Health-check endpoint for uptime monitoring."""
+    return {
+        "status": "healthy",
+        "service": settings.BRAND_NAME,
+        "version": "2.0.0",
+        "timestamp": datetime.now(timezone.utc).isoformat(),
+    }
 
-💬 Message:
-{form.message or 'No message'}
 
-🔗 Respond ASAP!"""
-    
-    url = f'https://api.telegram.org/bot{BOT_TOKEN}/sendMessage'
-    data = {'chat_id': CHAT_ID, 'text': message, 'parse_mode': 'HTML'}
-    
-    try:
-        response = requests.post(url, data=data, timeout=10); logger.info(f"Telegram status: {response.status_code}")
-    except Exception as e:
-        logger.error(f"Telegram error: {e}")
-    
-    return {'success': True, 'message': 'Thank you! We will contact you soon.'}
+@app.get("/", tags=["System"])
+async def root():
+    """Root endpoint - basic service info."""
+    return {
+        "service": f"{settings.BRAND_NAME} API",
+        "version": "2.0.0",
+        "docs": "/docs",
+        "health": "/health",
+    }
 
-@app.get("/contact-form")
-def contact_form_options():
-    """CORS preflight support"""
-    return {'status': 'ok'}
 
+# ── Run with uvicorn (development) ───────────────────────────────────
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
 
-# Booking endpoint
-class BookingRequest(BaseModel):
-    name: str
-    email: str
-    company: Optional[str] = None
-    slot: str
-
-@app.post("/booking")
-def create_booking(booking: BookingRequest):
-    """Handle booking request and notify via Telegram"""
-    import requests
-    
-    BOT_TOKEN = '7989235077:AAGtunw3F9RbJHc2rTnlY2idE9wW1yJBNhA'
-    CHAT_ID = '627288703'
-    
-    message = f"""📅 NEW BOOKING REQUEST!
-
-👤 Name: {booking.name}
-📧 Email: {booking.email}
-🏢 Company: {booking.company or 'N/A'}
-⏰ Slot: {booking.slot}
-
-🔗 Book this in your calendar!"""
-    
-    url = f'https://api.telegram.org/bot{BOT_TOKEN}/sendMessage'
-    data = {'chat_id': CHAT_ID, 'text': message, 'parse_mode': 'HTML'}
-    
-    try:
-        response = requests.post(url, data=data, timeout=10); logger.info(f"Telegram status: {response.status_code}")
-    except Exception as e:
-        logger.error(f"Telegram error: {e}")
-    
-    return {'success': True, 'message': 'Booking request received!'}
+    uvicorn.run(
+        "main:app",
+        host="0.0.0.0",
+        port=8000,
+        reload=True,
+    )

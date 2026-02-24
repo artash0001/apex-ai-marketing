@@ -1,0 +1,95 @@
+{
+  "market": "Dubai / UAE",
+  "last_updated": "2026-02-24",
+  "source_note": "Benchmarks compiled from public industry reports, Google Ads benchmarking data, and aggregated analytics. These are reference ranges, not guarantees.",
+  "industries": {
+    "real_estate": {
+      "label": "Real Estate (Dubai)",
+      "website": {
+        "avg_bounce_rate": "45-65%",
+        "avg_session_duration": "1:30-3:00",
+        "avg_pages_per_session": "2.5-4.0",
+        "mobile_traffic_share": "65-75%"
+      },
+      "seo": {
+        "avg_domain_authority": "15-35 (small agencies), 40-60 (established)",
+        "avg_organic_traffic_monthly": "500-5,000 (small), 10,000-50,000 (established)",
+        "top_keywords_competition": "High",
+        "local_pack_importance": "Critical"
+      },
+      "paid_advertising": {
+        "avg_cpc_google": "$1.50-$4.50",
+        "avg_cpc_meta": "$0.50-$2.00",
+        "avg_conversion_rate": "2-5%",
+        "avg_cost_per_lead": "$15-$60",
+        "avg_roas": "3x-8x"
+      },
+      "social_media": {
+        "avg_engagement_rate_instagram": "1.5-4%",
+        "avg_engagement_rate_linkedin": "2-5%",
+        "posting_frequency_recommended": "5-7x/week Instagram, 3-5x/week LinkedIn"
+      },
+      "email": {
+        "avg_open_rate": "18-28%",
+        "avg_click_rate": "2-5%",
+        "avg_unsubscribe_rate": "0.2-0.5%"
+      }
+    },
+    "hospitality": {
+      "label": "Hospitality & Tourism (Dubai)",
+      "website": {
+        "avg_bounce_rate": "35-55%",
+        "avg_session_duration": "2:00-4:00",
+        "mobile_traffic_share": "70-80%"
+      },
+      "paid_advertising": {
+        "avg_cpc_google": "$0.80-$3.00",
+        "avg_conversion_rate": "3-7%",
+        "avg_cost_per_booking": "$10-$40"
+      },
+      "social_media": {
+        "avg_engagement_rate_instagram": "2-6%",
+        "visual_content_importance": "Critical"
+      }
+    },
+    "professional_services": {
+      "label": "Professional Services (Dubai)",
+      "website": {
+        "avg_bounce_rate": "40-60%",
+        "avg_session_duration": "1:45-3:30",
+        "mobile_traffic_share": "55-65%"
+      },
+      "seo": {
+        "avg_domain_authority": "10-25 (new), 30-50 (established)",
+        "content_importance": "High (thought leadership)"
+      },
+      "paid_advertising": {
+        "avg_cpc_google": "$2.00-$8.00",
+        "avg_conversion_rate": "2-4%",
+        "avg_cost_per_lead": "$30-$120"
+      },
+      "email": {
+        "avg_open_rate": "20-30%",
+        "avg_click_rate": "2-4%"
+      }
+    },
+    "ecommerce": {
+      "label": "E-Commerce (UAE)",
+      "website": {
+        "avg_bounce_rate": "30-50%",
+        "avg_session_duration": "2:00-5:00",
+        "mobile_traffic_share": "70-80%",
+        "avg_cart_abandonment_rate": "65-80%"
+      },
+      "paid_advertising": {
+        "avg_cpc_google_shopping": "$0.30-$1.50",
+        "avg_conversion_rate": "1.5-3.5%",
+        "avg_roas": "4x-12x"
+      },
+      "email": {
+        "avg_open_rate": "15-25%",
+        "avg_revenue_per_email": "$0.05-$0.20"
+      }
+    }
+  }
+}

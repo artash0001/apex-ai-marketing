@@ -79,7 +79,24 @@ export function Contact() {
     setError('');
 
     try {
-      const response = await fetch('https://api.web3forms.com/submit', {
+      // Submit to our backend webhook (creates client record, triggers audit, notifies via Telegram)
+      const backendPromise = fetch('/api/webhooks/web3forms', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: formData.name,
+          business_name: formData.businessName,
+          website: formData.website,
+          email: formData.email,
+          phone: formData.phone,
+          revenue_source: formData.revenueSource,
+          budget: formData.budget,
+          message: formData.message,
+        }),
+      }).catch(() => null); // Don't fail if backend is down
+
+      // Also submit to Web3Forms as backup
+      const web3Promise = fetch('https://api.web3forms.com/submit', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -87,9 +104,11 @@ export function Contact() {
           ...formData,
           subject: `Apex Audit Request: ${formData.businessName || formData.name}`,
         }),
-      });
+      }).catch(() => null);
 
-      if (response.ok) {
+      const [backendRes, web3Res] = await Promise.all([backendPromise, web3Promise]);
+
+      if ((backendRes && backendRes.ok) || (web3Res && web3Res.ok)) {
         setIsSubmitted(true);
       } else {
         setError('Something went wrong. Please try again or contact us directly.');

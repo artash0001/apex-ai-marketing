@@ -1,0 +1,103 @@
+# =============================================================================
+# Apex AI Marketing - Caddy Reverse Proxy Configuration
+# =============================================================================
+# Caddy automatically manages TLS certificates via Let's Encrypt.
+# This configuration routes traffic to the appropriate Docker services.
+#
+# Install:  sudo apt install caddy   (or use the official repo)
+# Reload:   sudo systemctl reload caddy
+# Logs:     journalctl -u caddy -f
+#
+# NOTE: This file is placed on the VPS at /etc/caddy/Caddyfile (or appended
+# to an existing one). It is NOT inside a Docker container — Caddy runs on
+# the host and proxies to the Docker-exposed ports.
+# =============================================================================
+
+apexaimarketing.pro {
+    # ── API endpoints ────────────────────────────────────────────────────
+    # All /api/* requests go to the FastAPI backend
+    handle /api/* {
+        reverse_proxy localhost:8100
+    }
+
+    # ── Health check endpoint ────────────────────────────────────────────
+    handle /health {
+        reverse_proxy localhost:8100
+    }
+
+    # ── WebSocket support for backend (if needed) ────────────────────────
+    handle /ws/* {
+        reverse_proxy localhost:8100
+    }
+
+    # ── API documentation (FastAPI auto-generated) ───────────────────────
+    handle /docs {
+        reverse_proxy localhost:8100
+    }
+    handle /openapi.json {
+        reverse_proxy localhost:8100
+    }
+    handle /redoc {
+        reverse_proxy localhost:8100
+    }
+
+    # ── Contact form and booking (legacy endpoints on backend) ───────────
+    handle /contact-form {
+        reverse_proxy localhost:8100
+    }
+    handle /booking {
+        reverse_proxy localhost:8100
+    }
+
+    # ── Admin panel ──────────────────────────────────────────────────────
+    # All /admin/* requests go to the admin SPA
+    handle /admin/* {
+        uri strip_prefix /admin
+        reverse_proxy localhost:8101
+    }
+    handle /admin {
+        redir /admin/ permanent
+    }
+
+    # ── Static deliverables ──────────────────────────────────────────────
+    handle /deliverables/* {
+        reverse_proxy localhost:8100
+    }
+
+    # ── Frontend (default catch-all) ─────────────────────────────────────
+    # Everything else goes to the public-facing frontend
+    handle {
+        reverse_proxy localhost:8102
+    }
+
+    # ── Logging ──────────────────────────────────────────────────────────
+    log {
+        output file /var/log/caddy/apexaimarketing.log {
+            roll_size 10mb
+            roll_keep 5
+        }
+    }
+
+    # ── Security headers ─────────────────────────────────────────────────
+    header {
+        X-Content-Type-Options "nosniff"
+        X-Frame-Options "SAMEORIGIN"
+        Referrer-Policy "strict-origin-when-cross-origin"
+        Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+        -Server
+    }
+
+    # ── Compression ──────────────────────────────────────────────────────
+    encode gzip zstd
+}
+
+# ── HTTP to HTTPS redirect ───────────────────────────────────────────────
+# Caddy handles this automatically, but being explicit doesn't hurt.
+http://apexaimarketing.pro {
+    redir https://apexaimarketing.pro{uri} permanent
+}
+
+# ── www redirect ─────────────────────────────────────────────────────────
+www.apexaimarketing.pro {
+    redir https://apexaimarketing.pro{uri} permanent
+}
