@@ -1,0 +1,75 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 210 20% 98%;
+    --foreground: 220 13% 9%;
+    --card: 0 0% 100%;
+    --card-foreground: 220 13% 9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 13% 9%;
+    --primary: 218 45% 20%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 210 20% 96%;
+    --secondary-foreground: 220 13% 9%;
+    --muted: 210 20% 96%;
+    --muted-foreground: 215 14% 46%;
+    --accent: 217 91% 57%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 214 32% 91%;
+    --input: 214 32% 91%;
+    --ring: 217 91% 57%;
+    --radius: 0.5rem;
+    
+    --navy: 218 45% 20%;
+    --blue: 217 91% 57%;
+    --gold: 38 91% 55%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+}
+
+@layer utilities {
+  .font-mono {
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .text-navy {
+    color: #1B2A4A;
+  }
+  .bg-navy {
+    background-color: #1B2A4A;
+  }
+  .text-blue {
+    color: #2E7CF6;
+  }
+  .bg-blue {
+    background-color: #2E7CF6;
+  }
+  .text-gold {
+    color: #F5A623;
+  }
+  .bg-gold {
+    background-color: #F5A623;
+  }
+  .border-gold {
+    border-color: #F5A623;
+  }
+  .hover\:bg-gold-dark:hover {
+    background-color: #E09513;
+  }
+}
