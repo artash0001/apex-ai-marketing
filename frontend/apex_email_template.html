@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="x-apple-disable-message-reformatting">
+    <title>APEX Digital</title>
+    <!--[if mso]>
+    <noscript>
+        <xml>
+            <o:OfficeDocumentSettings>
+                <o:PixelsPerInch>96</o:PixelsPerInch>
+            </o:OfficeDocumentSettings>
+        </xml>
+    </noscript>
+    <![endif]-->
+</head>
+<body style="margin:0;padding:0;font-family:Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;background-color:#F8F9FA;-webkit-font-smoothing:antialiased;">
+    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="background-color:#F8F9FA;">
+        <tr>
+            <td align="center" style="padding:40px 20px;">
+                <!-- Main Container -->
+                <table role="presentation" width="600" cellspacing="0" cellpadding="0" border="0" style="max-width:600px;width:100%;background-color:#ffffff;border-radius:12px;overflow:hidden;box-shadow:0 4px 24px rgba(27,42,74,0.08);">
+                    
+                    <!-- HEADER with Logo -->
+                    <tr>
+                        <td style="background:linear-gradient(135deg,#2E7CF6 0%,#1B2A4A 100%);padding:40px 30px;text-align:center;">
+                            <!-- Logo -->
+                            <table role="presentation" cellspacing="0" cellpadding="0" border="0" align="center" style="margin:0 auto;">
+                                <tr>
+                                    <td style="width:50px;height:50px;background:linear-gradient(135deg,#3B82F6 0%,#1B2A4A 100%);border-radius:12px;text-align:center;vertical-align:middle;">
+                                        <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" height="100%">
+                                            <tr>
+                                                <td align="center" valign="middle">
+                                                    <svg width="30" height="30" viewBox="0 0 100 100" style="display:block;">
+                                                        <path d="M58 25 L34 56 H52 L42 81 L76 44 H58 Z" fill="#ffffff"/>
+                                                    </svg>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                            <!-- Brand Name -->
+                            <h1 style="color:#ffffff;font-size:28px;font-weight:700;margin:20px 0 0 0;letter-spacing:-0.5px;">APEX Digital</h1>
+                            <p style="color:rgba(255,255,255,0.85);font-size:14px;margin:8px 0 0 0;font-weight:500;">AI-Powered Marketing Agency</p>
+                        </td>
+                    </tr>
+                    
+                    <!-- CONTENT -->
+                    <tr>
+                        <td style="padding:40px 40px 30px 40px;">
+                            <!-- Greeting -->
+                            <p style="color:#1B2A4A;font-size:16px;line-height:1.7;margin:0 0 20px 0;font-weight:400;">Hi {{name}},</p>
+                            
+                            <!-- Personalization -->
+                            <p style="color:#1B2A4A;font-size:16px;line-height:1.7;margin:0 0 20px 0;font-weight:400;">
+                                I checked out <strong style="font-weight:600;">{{company}}</strong> today. {{observation}}.
+                            </p>
+                            
+                            <!-- Context -->
+                            <p style="color:#1B2A4A;font-size:16px;line-height:1.7;margin:0 0 20px 0;font-weight:400;">
+                                Most <strong style="font-weight:600;">{{industry}}</strong> companies I speak with are struggling with:
+                            </p>
+                            
+                            <!-- Pain Point Block -->
+                            <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="margin:20px 0;">
+                                <tr>
+                                    <td style="background-color:#F8F9FA;border-left:4px solid #2E7CF6;padding:20px;border-radius:0 8px 8px 0;">
+                                        <p style="color:#1B2A4A;font-size:16px;line-height:1.6;margin:0;font-style:italic;font-weight:500;">
+                                            "{{pain_point}}"
+                                        </p>
+                                    </td>
+                                </tr>
+                            </table>
+                            
+                            <!-- Results Intro -->
+                            <p style="color:#1B2A4A;font-size:16px;line-height:1.7;margin:0 0 20px 0;font-weight:400;">
+                                We helped <strong style="font-weight:600;">{{similar_company}}</strong> and they saw:
+                            </p>
+                            
+                            <!-- Results Block (Gradient) -->
+                            <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="margin:25px 0;">
+                                <tr>
+                                    <td style="background:linear-gradient(135deg,#2E7CF6 0%,#1B2A4A 100%);padding:30px;border-radius:12px;text-align:center;">
+                                        <p style="color:#ffffff;font-size:26px;font-weight:700;margin:0 0 10px 0;line-height:1.3;">
+                                            {{result_example}}
+                                        </p>
+                                        <p style="color:rgba(255,255,255,0.8);font-size:14px;margin:0;font-weight:500;">
+                                            in just 90 days
+                                        </p>
+                                    </td>
+                                </tr>
+                            </table>
+                            
+                            <!-- CTA Text -->
+                            <p style="color:#1B2A4A;font-size:16px;line-height:1.7;margin:30px 0 25px 0;text-align:center;font-weight:400;">
+                                Worth a quick chat to see if we can do the same for {{company}}?
+                            </p>
+                            
+                            <!-- CTA Button -->
+                            <table role="presentation" cellspacing="0" cellpadding="0" border="0" align="center" style="margin:30px auto;">
+                                <tr>
+                                    <td style="background:linear-gradient(135deg,#2E7CF6 0%,#1B2A4A 100%);border-radius:8px;text-align:center;box-shadow:0 4px 12px rgba(46,124,246,0.4);">
+                                        <a href="{{calendar_link}}" style="display:inline-block;padding:16px 40px;color:#ffffff;text-decoration:none;font-size:16px;font-weight:600;border-radius:8px;">Book 15-Min Call</a>
+                                    </td>
+                                </tr>
+                            </table>
+                            
+                            <!-- Alternative -->
+                            <p style="color:#666666;font-size:14px;line-height:1.6;margin:30px 0 0 0;text-align:center;">
+                                Or simply reply to this email with any questions.
+                            </p>
+                        </td>
+                    </tr>
+                    
+                    <!-- FOOTER -->
+                    <tr>
+                        <td style="background-color:#F8F9FA;padding:35px 40px;text-align:center;border-top:1px solid #E5E7EB;">
+                            <!-- Signature -->
+                            <p style="color:#1B2A4A;font-size:18px;font-weight:700;margin:0 0 5px 0;">Artaches</p>
+                            <p style="color:#666666;font-size:14px;margin:0 0 20px 0;font-weight:500;">Founder, APEX Digital</p>
+                            
+                            <!-- Contact Info -->
+                            <table role="presentation" cellspacing="0" cellpadding="0" border="0" align="center" style="margin:0 auto;">
+                                <tr>
+                                    <td style="padding:0 10px;">
+                                        <a href="mailto:artaches@apexaimarketing.pro" style="color:#2E7CF6;text-decoration:none;font-size:13px;font-weight:500;">artaches@apexaimarketing.pro</a>
+                                    </td>
+                                    <td style="color:#CCCCCC;font-size:13px;">|</td>
+                                    <td style="padding:0 10px;">
+                                        <a href="https://apexaimarketing.pro" style="color:#2E7CF6;text-decoration:none;font-size:13px;font-weight:500;">apexaimarketing.pro</a>
+                                    </td>
+                                </tr>
+                            </table>
+                            
+                            <!-- Location -->
+                            <p style="color:#999999;font-size:12px;margin:20px 0 0 0;">Dubai, UAE</p>
+                            
+                            <!-- Unsubscribe (required for deliverability) -->
+                            <p style="color:#CCCCCC;font-size:11px;margin:25px 0 0 0;line-height:1.5;">
+                                You're receiving this because you might be interested in growing {{company}}.<br>
+                                <a href="#" style="color:#999999;text-decoration:underline;">Unsubscribe</a> if not relevant.
+                            </p>
+                        </td>
+                    </tr>
+                    
+                </table>
+                <!-- End Main Container -->
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

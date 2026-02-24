@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book a Call — APEX Digital</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: #fff;
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 2.2em;
+        }
+        .subtitle {
+            text-align: center;
+            color: #94a3b8;
+            margin-bottom: 40px;
+        }
+        .slots {
+            display: grid;
+            gap: 12px;
+        }
+        .day {
+            background: rgba(255,255,255,0.05);
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .day-title {
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #3b82f6;
+        }
+        .time-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+        .time-slot {
+            padding: 12px;
+            background: rgba(59, 130, 246, 0.2);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .time-slot:hover {
+            background: #3b82f6;
+        }
+        .time-slot.booked {
+            background: rgba(100,100,100,0.2);
+            border-color: rgba(100,100,100,0.3);
+            cursor: not-allowed;
+            opacity: 0.5;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal.show { display: flex; }
+        .modal-content {
+            background: #1e293b;
+            padding: 30px;
+            border-radius: 16px;
+            max-width: 400px;
+            width: 90%;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 14px;
+            color: #94a3b8;
+        }
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 8px;
+            background: rgba(255,255,255,0.05);
+            color: #fff;
+        }
+        button {
+            width: 100%;
+            padding: 14px;
+            background: #3b82f6;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .success {
+            display: none;
+            text-align: center;
+            padding: 40px;
+        }
+        .success.show { display: block; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Book Your Free Strategy Call</h1>
+        <p class="subtitle">15 minutes to discuss your marketing goals</p>
+        
+        <div class="slots" id="slots">
+            <div class="day">
+                <div class="day-title">Tomorrow</div>
+                <div class="time-grid">
+                    <div class="time-slot" onclick="book('Tomorrow 10:00 AM')">10:00 AM</div>
+                    <div class="time-slot" onclick="book('Tomorrow 11:00 AM')">11:00 AM</div>
+                    <div class="time-slot" onclick="book('Tomorrow 2:00 PM')">2:00 PM</div>
+                    <div class="time-slot" onclick="book('Tomorrow 3:00 PM')">3:00 PM</div>
+                    <div class="time-slot" onclick="book('Tomorrow 4:00 PM')">4:00 PM</div>
+                    <div class="time-slot" onclick="book('Tomorrow 5:00 PM')">5:00 PM</div>
+                </div>
+            </div>
+            <div class="day">
+                <div class="day-title">Day After Tomorrow</div>
+                <div class="time-grid">
+                    <div class="time-slot" onclick="book('Day After 10:00 AM')">10:00 AM</div>
+                    <div class="time-slot" onclick="book('Day After 11:00 AM')">11:00 AM</div>
+                    <div class="time-slot" onclick="book('Day After 2:00 PM')">2:00 PM</div>
+                    <div class="time-slot" onclick="book('Day After 3:00 PM')">3:00 PM</div>
+                    <div class="time-slot" onclick="book('Day After 4:00 PM')">4:00 PM</div>
+                    <div class="time-slot" onclick="book('Day After 5:00 PM')">5:00 PM</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="success" id="success">
+            <h2>✅ Booked!</h2>
+            <p>We'll send you a confirmation email with meeting details.</p>
+        </div>
+    </div>
+    
+    <div class="modal" id="modal">
+        <div class="modal-content">
+            <h3 style="margin-bottom: 20px;">Confirm Your Slot</h3>
+            <p id="selected-time" style="margin-bottom: 20px; color: #3b82f6;"></p>
+            <form onsubmit="confirmBooking(event)">
+                <div class="form-group">
+                    <label>Name *</label>
+                    <input type="text" id="name" required>
+                </div>
+                <div class="form-group">
+                    <label>Email *</label>
+                    <input type="email" id="email" required>
+                </div>
+                <div class="form-group">
+                    <label>Company</label>
+                    <input type="text" id="company">
+                </div>
+                <button type="submit">Confirm Booking</button>
+            </form>
+        </div>
+    </div>
+    
+    <script>
+        let selectedSlot = '';
+        
+        function book(time) {
+            selectedSlot = time;
+            document.getElementById('selected-time').textContent = time;
+            document.getElementById('modal').classList.add('show');
+        }
+        
+        async function confirmBooking(e) {
+            e.preventDefault();
+            const data = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                company: document.getElementById('company').value,
+                slot: selectedSlot
+            };
+            
+            // Send to API
+            await fetch('http://72.62.64.166:8000/booking', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
+            
+            document.getElementById('modal').classList.remove('show');
+            document.getElementById('slots').style.display = 'none';
+            document.querySelector('.subtitle').style.display = 'none';
+            document.getElementById('success').classList.add('show');
+        }
+        
+        document.getElementById('modal').addEventListener('click', function(e) {
+            if (e.target === this) this.classList.remove('show');
+        });
+    </script>
+</body>
+</html>
