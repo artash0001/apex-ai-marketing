@@ -66,24 +66,37 @@ export function Footer() {
               <h4 className="font-semibold mb-4">Contact</h4>
               <div className="space-y-3">
                 <a
-                  href="mailto:hello@apexaimarketing.pro"
+                  href="mailto:artaches@apexaimarketing.pro"
                   className="flex items-center gap-2 text-white/70 hover:text-white transition-colors"
                 >
                   <Mail className="w-4 h-4" />
-                  hello@apexaimarketing.pro
+                  artaches@apexaimarketing.pro
                 </a>
-                <div className="flex items-center gap-2 text-white/50">
+                <a
+                  href="tel:+971507510161"
+                  className="flex items-center gap-2 text-white/70 hover:text-white transition-colors"
+                >
                   <Phone className="w-4 h-4" />
-                  [PLACEHOLDER — owner adds real number]
-                </div>
-                <div className="flex items-center gap-2 text-white/50">
+                  +971 50 751 0161
+                </a>
+                <a
+                  href="https://wa.me/971507510161"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 text-white/70 hover:text-white transition-colors"
+                >
                   <MessageCircle className="w-4 h-4" />
-                  WhatsApp: [PLACEHOLDER]
-                </div>
-                <div className="flex items-center gap-2 text-white/50">
+                  WhatsApp
+                </a>
+                <a
+                  href="https://t.me/Wowdubai1"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 text-white/70 hover:text-white transition-colors"
+                >
                   <MessageCircle className="w-4 h-4" />
-                  Telegram: [PLACEHOLDER]
-                </div>
+                  Telegram @Wowdubai1
+                </a>
               </div>
             </div>
           </div>
